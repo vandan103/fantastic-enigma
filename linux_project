@@ -1,0 +1,59 @@
+#!/bin/bash
+
+#src=/home/vandan/scripts
+#des=/home/vandan/Desktop/destination
+
+
+#echo $UID
+if [ $UID -eq 1000 ]
+
+echo "enter source directory's path"
+read src
+
+echo "enter the destination's path"
+read des
+
+
+cd $src
+
+echo "You are root user,please enter the username for change owner of files."
+read user
+
+then
+ for i in *;
+    do new=`echo "$i" | tr 'A-Z' 'a-z' | sed -e 's/^./\U&/'`;
+    mv "$i" "$new" 2>/dev/null;
+    #chown $user $i;
+done;
+
+cd
+cd $des
+
+
+for j in *;
+do
+chown $user $j
+done;
+cp -r $src $des
+
+else
+ echo "sorry you are not root user, you can't make  changes into files"
+fi
+
+#for vandan in *;
+#do
+#echo "$vandan"
+#mv -i $vandan `echo $vandan | tr 'A-Z' 'a-z' | sed -e 's!/.!\U&!g'`;
+#tr 'a-z' 'A-Z'
+
+#sed "s/\b\(.\)/\u\1/g" $filename
+#sed -e "s/\b\(.\)/\u\1/g"
+#mv -i $filename | tr 'a-z' 'A-Z';
+#find $filename -depth -exec mv 's/(.*)\/([^\/]*)/$1\/\L$2/' {} \;
+#mv -n 's/./\U$&/' $filename;
+#done
+
+
+#tx= touch src | sed -e "s/\b\(.\)/\u\1/g"
+#echo "$tx"
+#echo $des
