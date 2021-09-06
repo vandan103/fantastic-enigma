@@ -1,0 +1,46 @@
+#!/bin/bash
+
+#src=/home/user/scripts
+#des=/home/user/destination
+
+
+#echo $UID
+if [ $UID -eq 1000 ]
+
+echo "enter source directory's path"
+read src
+#src=/home/user/$sr
+
+echo "enter the destination's path"
+read des
+#des=/home/user/$ds
+
+
+
+cd $src
+
+#reading username for root chnages!!
+echo "You are root user,please enter the username for change owner of files."
+read user
+
+then
+ for i in *;
+    #work:for converting first case as uppercase and others will be lowercase.
+    do new=`echo "$i" | tr 'A-Z' 'a-z' | sed -e 's/^./\U&/'`;
+    mv "$i" "$new" 2>/dev/null;
+   
+done;
+
+cd
+cd $des
+
+#work:for changing files owner name.
+for j in *;
+do
+   chown $user $j
+done;
+cp -r $src $des
+
+else
+ echo "sorry you are not root user, you can't make  changes into files"
+fi
